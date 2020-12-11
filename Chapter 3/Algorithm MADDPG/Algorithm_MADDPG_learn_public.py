@@ -402,12 +402,12 @@ def main():
                 optimizerActor_list[1].zero_grad()
                 optimizerActor_list[2].zero_grad()
                 
-                #Подаем нейронные сети исоплнителей локальнеы состояния
+                #Подаем в нейронные сети исполнителей локальные состояния
                 action_probabilitiesT1 = actor_network_list[0](obs_agentT1)
                 action_probabilitiesT2 = actor_network_list[1](obs_agentT2)
                 action_probabilitiesT3 = actor_network_list[2](obs_agentT3)
                                 
-                #Конвертиртируем данные в numpy
+                #Конвертируем данные в numpy
                 action_probabilitiesT1 = action_probabilitiesT1.to("cpu")
                 action_probabilitiesT2 = action_probabilitiesT2.to("cpu")
                 action_probabilitiesT3 = action_probabilitiesT3.to("cpu")
@@ -427,7 +427,7 @@ def main():
                 exp_obs = [x for x in exp_obs]
                 obs_agentsT = torch.FloatTensor([exp_obs]).to(device)
                                 
-                #Задаем значение функции потерь для нерйонных сетей исоплнителей
+                #Задаем значение функции потерь для нерйонных сетей исполнителей
                 #как отрицательный выход критика
                 actor_lossT = -critic_network(obs_agentsT, act_fullT)
                 
@@ -437,7 +437,7 @@ def main():
                 #Выполняем обратное распространение ошибки
                 actor_lossT.backward()
                 
-                #Выполняем оптимизацию нейронных сетей исоплнителей
+                #Выполняем оптимизацию нейронных сетей исполнителей
                 optimizerActor_list[0].step()
                 optimizerActor_list[1].step()
                 optimizerActor_list[2].step()
